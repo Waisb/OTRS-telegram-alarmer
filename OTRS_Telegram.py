@@ -29,6 +29,11 @@ except Exception as EXCEPTION:
 #Цикл проверки (основной цикл)
 while True:
     try:
+        if session.validate_session(session) == False:
+            Log.warning("Сессия не актуальна")
+            session.update_session(session)
+        else:
+            Log.info("Сессия в норме")
         Log.info("Проверка очереди")
         tickets = session.get_tickets(OTRS_QUEUE)
         #Ошибка при получении тикетов 
